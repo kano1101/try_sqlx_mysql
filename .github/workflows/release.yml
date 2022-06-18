@@ -57,8 +57,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y curl libssl-dev pkg-config build-essential
-          export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/
-          export OPENSSL_INCLUDE_DIR=/usr/include/openssl/
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
@@ -66,6 +64,9 @@ jobs:
           use-cross: true 
           command: build
           args: --release --target ${{ matrix.target }} --all-features --verbose
+          env:
+            OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/
+            OPENSSL_INCLUDE_DIR=/usr/include/openssl/
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@2.1.1
