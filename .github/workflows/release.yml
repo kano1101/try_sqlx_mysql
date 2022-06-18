@@ -55,7 +55,10 @@ jobs:
         run: brew install openssl
       - name: Install OpenSSL Linux
         if: runner.os == 'Linux'
-        run: sudo apt-get install libssl-dev
+        run: |
+        sudo apt-get update
+        sudo apt-get install -y curl libssl-dev pkg-config build-essential
+
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
