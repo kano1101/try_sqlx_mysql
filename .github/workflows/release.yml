@@ -17,10 +17,6 @@ jobs:
             target: x86_64-unknown-linux-gnu
             artifact_name: try_sqlx_mysql
             asset_name: main-x86_64-unknown-linux-gnu
-#          - os: ubuntu-latest
-#            target: x86_64-unknown-linux-musl
-#            artifact_name: try_sqlx_mysql
-#            asset_name: main-x86_64-unknown-linux-musl
           - os: ubuntu-latest
             target: x86_64-pc-windows-gnu
             artifact_name: try_sqlx_mysql.exe
@@ -53,11 +49,11 @@ jobs:
           rustup show
 
       - name: Install OpenSSL for Linux
-        if: matrix.target == 'x86_64-unknown-linux-gnu'
+        if: ${{ matrix.target == 'x86_64-unknown-linux-gnu' || matrix.target == 'x86_64-pc-windows-gnu' }}
         run: sudo apt update && sudo apt install pkg-config libssl-dev
         
-      - name: Install OpenSSL for Windows
-        if: matrix.target == 'x86_64-pc-windows-gnu'
+#      - name: Install OpenSSL for Windows
+#        if: matrix.target == 'x86_64-pc-windows-gnu'
         
       - name: Install OpenSSL for macOS
         if: matrix.target == 'aarch64-apple-darwin'
