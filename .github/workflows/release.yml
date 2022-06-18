@@ -58,11 +58,6 @@ jobs:
         
       - name: Install OpenSSL for Windows
         if: matrix.target == 'x86_64-pc-windows-gnu'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MSYS
-      - shell: msys2 {0}
-        run: pacman -S mingw-w64-x86_64-openssl
         
       - name: Install OpenSSL for macOS
         if: matrix.target == 'aarch64-apple-darwin'
