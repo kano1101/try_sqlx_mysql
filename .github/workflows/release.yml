@@ -51,8 +51,8 @@ jobs:
         run: uname -m
 
       - name: Install OpenSSL
-      if: runner.os == 'macOS'
-      run: brew install openssl
+        if: runner.os == 'macOS'
+        run: brew install openssl
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
