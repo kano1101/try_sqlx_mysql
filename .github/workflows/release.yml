@@ -58,8 +58,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y curl libssl-dev pkg-config build-essential
-          dpkg -L libssl-dev | grep lib
-          dpkg -L libssl-dev | grep include
+#          dpkg -L libssl-dev | grep lib
+#          dpkg -L libssl-dev | grep include
+          export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/
+          export OPENSSL_INCLUDE_DIR=/usr/include/openssl/
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
