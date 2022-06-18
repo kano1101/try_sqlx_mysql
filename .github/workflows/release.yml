@@ -58,20 +58,17 @@ jobs:
         
       - name: Install OpenSSL Linux
         if: runner.os == 'Linux'
-        run: sudo apt update && sudo apt install pkg-config libssl-dev clang
+        run: sudo apt update && sudo apt install pkg-config libssl-dev
 
       - name: Display OpenSSL version
-        run: openssl version
+        run: openssl version -a
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
-        env:
-          TARGET_CC: clang
         with:
+          use-cross: true
           command: build
-          args: --release --target=${{ matrix.target }} --features vendored-openssl
-#          args: --release --target=${{ matrix.target }} --all-features --verbose
-#          use-cross: true
+          args: --release --target=${{ matrix.target }} --all-features --verbose
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@2.1.1
