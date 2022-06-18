@@ -13,34 +13,28 @@ jobs:
     strategy:
       matrix:
         include:
-#          - os: ubuntu-latest
-#            target: x86_64-unknown-linux-gnu
-#            artifact_name: try_sqlx_mysql
-#            asset_name: main-x86_64-unknown-linux-gnu
-#          - os: ubuntu-latest
-#            target: x86_64-unknown-linux-musl
-#            artifact_name: try_sqlx_mysql
-#            asset_name: main-x86_64-unknown-linux-musl
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact_name: try_sqlx_mysql
+            asset_name: main-x86_64-unknown-linux-gnu
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            artifact_name: try_sqlx_mysql
+            asset_name: main-x86_64-unknown-linux-musl
           - os: ubuntu-latest
             target: x86_64-pc-windows-gnu
             artifact_name: try_sqlx_mysql.exe
             asset_name: main-x86_64-pc-windows-gnu.exe
           - os: macos-latest
-            target: aarch64-apple-darwin
-            artifact_name: try_sqlx_mysql
-            asset_name: main-aarch64-apple-darwin
-          - os: macos-latest
             target: x86_64-apple-darwin
             artifact_name: try_sqlx_mysql
             asset_name: main-x86_64-apple-darwin
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            artifact_name: try_sqlx_mysql
+            asset_name: main-aarch64-apple-darwin
 
     runs-on: ${{ matrix.os }}
-
-    env:
-      RUST_BACKTRACE: 1
-      OPENSSL_DIR: '/usr/bin/'
-      OPENSSL_LIB_DIR: '/usr/lib/x86_64-linux-gnu/'
-      OPENSSL_INCLUDE_DIR: '/usr/include/openssl/'
 
     steps:
       - name: Checkout repository
@@ -60,41 +54,14 @@ jobs:
         run: brew install openssl
       - name: Install OpenSSL Linux
         if: runner.os == 'Linux'
-        run: |
-          echo '~1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo apt update
-          echo '~2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo apt install libssl-dev
-          echo '~3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          which openssl
-          echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo apt list --installed | grep ssl
-          echo '~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo dpkg -L libssl-dev
-          echo '~6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+        run: sudo apt update && sudo apt install pkg-config libssl-dev
 
-#          sudo apt install openssl libssl-dev pkg-config
-#          sudo echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
-#          sudo echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
-
-      - name: OpenSSL version
+      - name: Display OpenSSL version
         run: openssl version
-
-#      - name: Check env
-#        env:
-#          OPENSSL_DIR: /usr/bin/
-#          OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/
-#          OPENSSL_INCLUDE_DIR: /usr/include/openssl/
-#        run: |
-#          echo "OPENSSL_DIR: /usr/bin/ == $OPENSSL_DIR"
-#          echo "OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/ == $OPENSSL_LIB_DIR"
-#          echo "OPENSSL_INCLUDE_DIR: /usr/include/openssl/ == $OPENSSL_INCLUDE_DIR"
-#          exit 1
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true 
           command: build
           args: --release --target ${{ matrix.target }} --all-features --verbose
 
