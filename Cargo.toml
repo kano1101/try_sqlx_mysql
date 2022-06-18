@@ -1,0 +1,15 @@
+[package]
+name = "try_sqlx_mysql"
+version = "0.1.0"
+authors = ["aqun <a.kano1101@gmail.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sqlx = { version = "0.5", features = [  "runtime-async-std-native-tls", "mysql" ] }
+async-std = { version = "1", features = [ "attributes" ] }
+# sqlx = { version = "0.4.2", features = [  "runtime-tokio-native-tls", "mysql", "chrono" ] }
+# tokio = { version = "0.2.21", features = ["full"] }
+# anyhow = "=1.0.36"
+# chrono = "=0.4.19"
