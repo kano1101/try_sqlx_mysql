@@ -58,16 +58,19 @@ jobs:
           echo '~1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           sudo apt update
           echo '~2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo apt install openssl
+          sudo apt install openssl libssl-dev pkg-config
           echo '~3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-#          sudo which openssl
-#          echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+          which openssl
+          echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 #          sudo apt list --installed | grep ssl
 #          echo '~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 #          sudo dpkg -L libssl-dev
 #          echo '~6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 #          sudo echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
 #          sudo echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
+
+      - name: OpenSSL version
+        run: openssl version
 
 #      - name: Check env
 #        env:
@@ -82,10 +85,12 @@ jobs:
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
+        env:
+          OPENSSL_DIR: /usr/bin/
         with:
           use-cross: true 
           command: build
-          args: --release --target ${{ matrix.target }} --all-features --verbose
+          args: --release --target ${{ matrix.target }} --all-features --verbose RUST_BACKTRACE=1
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@2.1.1
