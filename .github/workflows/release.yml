@@ -17,14 +17,10 @@ jobs:
             target: x86_64-unknown-linux-gnu
             artifact_name: try_sqlx_mysql
             asset_name: main-x86_64-unknown-linux-gnu
-#          - os: ubuntu-latest
-#            target: x86_64-pc-windows-gnu
-#            artifact_name: try_sqlx_mysql.exe
-#            asset_name: main-x86_64-pc-windows-gnu.exe
-#          - os: macos-latest
-#            target: x86_64-apple-darwin
-#            artifact_name: try_sqlx_mysql
-#            asset_name: main-x86_64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-pc-windows-gnu
+            artifact_name: try_sqlx_mysql.exe
+            asset_name: main-x86_64-pc-windows-gnu.exe
           - os: macos-latest
             target: aarch64-apple-darwin
             artifact_name: try_sqlx_mysql
@@ -48,14 +44,14 @@ jobs:
           uname -a
           rustup show
 
-      - name: Install OpenSSL for Linux
+      - name: Install OpenSSL for target x86_64
         if: ${{ matrix.target == 'x86_64-unknown-linux-gnu' || matrix.target == 'x86_64-pc-windows-gnu' }}
         run: sudo apt update && sudo apt install pkg-config libssl-dev
         
 #      - name: Install OpenSSL for Windows
 #        if: matrix.target == 'x86_64-pc-windows-gnu'
         
-      - name: Install OpenSSL for macOS
+      - name: Install OpenSSL for for target aarch64
         if: matrix.target == 'aarch64-apple-darwin'
         run: brew install openssl
 
@@ -65,9 +61,9 @@ jobs:
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
         with:
+          use-cross: true
           command: build
           args: --release --target ${{ matrix.target }} --all-features --verbose
-#          use-cross: true
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@2.1.1
