@@ -13,9 +13,4 @@ async-std = { version = "1", features = [ "attributes" ] }
 # tokio = { version = "0.2.21", features = ["full"] }
 # anyhow = "=1.0.36"
 # chrono = "=0.4.19"
-openssl = { version = '0.10', optional = true }
-
-[features]
-default = ["reqwest/default-tls", "trust-dns-resolver/dns-over-native-tls"]
-vendored-openssl = ["openssl/vendored"]
-rustls = ["reqwest/rustls-tls", "trust-dns-resolver/dns-over-rustls"]
+openssl = { version = '0.10', features = ["vendored"] }
