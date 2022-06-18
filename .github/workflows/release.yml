@@ -69,7 +69,8 @@ jobs:
           TARGET_CC: clang
         with:
           command: build
-          args: --release --target=${{ matrix.target }} #--all-features --verbose
+          args: --release --target=${{ matrix.target }} --features vendored-openssl
+#          args: --release --target=${{ matrix.target }} --all-features --verbose
 #          use-cross: true
 
       - name: Upload binaries to release
