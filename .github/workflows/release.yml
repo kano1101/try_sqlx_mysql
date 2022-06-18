@@ -62,6 +62,8 @@ jobs:
           echo '~3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
           echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
+          source ~./bash_profile
+          which openssl
           echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           apt list --installed | grep ssl
           echo '~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
