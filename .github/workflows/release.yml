@@ -67,7 +67,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --target=${{ matrix.target }} --features vendored-openssl --features rustls
+          args: --release --target=${{ matrix.target }} --all-features --verbose
 #          use-cross: true
 
       - name: Upload binaries to release
