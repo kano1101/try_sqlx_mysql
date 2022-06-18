@@ -69,16 +69,16 @@ jobs:
 #          sudo echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
 #          sudo echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
 
-      - name: Check env
-        env:
-          OPENSSL_DIR: /usr/bin/
-          OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/
-          OPENSSL_INCLUDE_DIR: /usr/include/openssl/
-        run: |
-          echo "OPENSSL_DIR: /usr/bin/ == $OPENSSL_DIR"
-          echo "OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/ == $OPENSSL_LIB_DIR"
-          echo "OPENSSL_INCLUDE_DIR: /usr/include/openssl/ == $OPENSSL_INCLUDE_DIR"
-          exit 1
+#      - name: Check env
+#        env:
+#          OPENSSL_DIR: /usr/bin/
+#          OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/
+#          OPENSSL_INCLUDE_DIR: /usr/include/openssl/
+#        run: |
+#          echo "OPENSSL_DIR: /usr/bin/ == $OPENSSL_DIR"
+#          echo "OPENSSL_LIB_DIR: /usr/lib/x86_64-linux-gnu/ == $OPENSSL_LIB_DIR"
+#          echo "OPENSSL_INCLUDE_DIR: /usr/include/openssl/ == $OPENSSL_INCLUDE_DIR"
+#          exit 1
 
       - name: Cross build with all features
         uses: actions-rs/cargo@v1
