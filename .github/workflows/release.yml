@@ -60,14 +60,14 @@ jobs:
           echo '~2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           sudo apt install pkg-config libssl-dev
           echo '~3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
-          echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
-          source ~./bash_profile
-          which openssl
+          sudo echo 'export OPENSSL_LIB_DIR=/usr/lib/x86_64-linux-gnu/' >> ~/.bash_profile
+          sudo echo 'export OPENSSL_INCLUDE_DIR=/usr/include/openssl/' >> ~/.bash_profile
+          sudo source ~./bash_profile
+          sudo which openssl
           echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          apt list --installed | grep ssl
+          sudo apt list --installed | grep ssl
           echo '~5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          dpkg -L libssl-dev
+          sudo dpkg -L libssl-dev
           echo '~6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
       - name: Cross build with all features
