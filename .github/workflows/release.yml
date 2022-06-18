@@ -58,7 +58,7 @@ jobs:
           echo '~1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           sudo apt update
           echo '~2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-          sudo apt install openssl libssl-dev pkg-config
+#          sudo apt install openssl libssl-dev pkg-config
           echo '~3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
           which openssl
           echo '~4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
@@ -87,10 +87,11 @@ jobs:
         uses: actions-rs/cargo@v1
         env:
           OPENSSL_DIR: /usr/bin/
+          RUST_BACKTRACE: 1
         with:
           use-cross: true 
           command: build
-          args: --release --target ${{ matrix.target }} --all-features --verbose RUST_BACKTRACE=1
+          args: --release --target ${{ matrix.target }} --all-features --verbose
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@2.1.1
