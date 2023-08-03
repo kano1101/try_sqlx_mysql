@@ -9,6 +9,7 @@ edition = "2021"
 [dependencies]
 sqlx = { version = "0.5", features = [  "runtime-async-std-rustls", "mysql" ] }
 async-std = { version = "1", features = [ "attributes" ] }
+anyhow = "1.0.58"
 # sqlx = { version = "0.4.2", features = [  "runtime-tokio-native-tls", "mysql", "chrono" ] }
 # tokio = { version = "0.2.21", features = ["full"] }
 # anyhow = "=1.0.36"
